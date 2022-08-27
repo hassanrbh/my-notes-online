@@ -5,8 +5,8 @@ const Create = (props) => {
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const [author, setAuthor] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const author = 'João Nunes';
     const navigate = useNavigate();
 
     const handleOnSubmit = (e) => {
@@ -46,7 +46,6 @@ const Create = (props) => {
                     type="text"
                     required
                     value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
                 />
                 {!isLoading && <button>Add Note</button>}
                 {isLoading && <button disabled>Adding Note</button>}
