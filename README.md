@@ -1,5 +1,4 @@
-## Start (Dojo-Blog)
+## Start (My Notes Online-Blog)
     Use npm run dev for starting site
 
-    Use npx json-server --watch data/db.json for the api
-# my-notes-online
+    Use npx json-server --watch data/db.json 
