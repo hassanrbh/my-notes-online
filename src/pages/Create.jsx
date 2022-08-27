@@ -41,12 +41,6 @@ const Create = (props) => {
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 />
-                <label >Note author:</label>
-                <input
-                    type="text"
-                    required
-                    value={author}
-                />
                 {!isLoading && <button>Add Note</button>}
                 {isLoading && <button disabled>Adding Note</button>}
             </form>
