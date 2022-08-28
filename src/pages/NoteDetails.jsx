@@ -1,38 +1,36 @@
-import { useParams, useNavigate } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
-
+import { useParams, useNavigate } from 'react-router-dom';
+import Loading from '../components/reusable/loading';
+import useFetch from '../hooks/useFetch';
+import useDeleteNote from '../services/useDeleteNote';
+import useFetchNote from '../services/useFetcheNote';
+import { apiUrl } from '../utils/apiUrl';
 
 const NoteDetails = (props) => {
+  // TODO: you need to use react-query for avoiding getting the data that you already have it
+  const { id } = useParams();
+  const { note, error, isLoading } = useFetchNote(id);
+  const navigate = useNavigate();
 
-    const { id } = useParams()
-    const { data: note, error, isLoading } = useFetch(props.url + id)
-    const navigate = useNavigate();
+  const handleClick = async () => {
+    await useDeleteNote(id).then(() => {
+      navigate('/');
+    });
+  };
 
-    const handleClick = () => {
-        fetch(props.url + id, {
-            method: 'DELETE'
-        }).then(() => {
-            navigate('/')
-        })
-
-    }
-
-
-
-    return (
-        <div className="note-details">
-            {isLoading && <div>Loading...</div>}
-            {error && <div>{error}</div>}
-            {note && (
-                <article>
-                    <h2>{note.title}</h2>
-                    <p>Written by {note.author}</p>
-                    <div>{note.body}</div>
-                    <button onClick={handleClick}>Delete</button>
-                </article>
-            )}
-        </div>
-    );
-}
+  return (
+    <div className="note-details">
+      {isLoading && <Loading />}
+      {error && <div>{error}</div>}
+      {note && (
+        <article>
+          <h2>{note.title}</h2>
+          <p>Written by {note.author}</p>
+          <div>{note.body}</div>
+          <button onClick={handleClick}>Delete</button>
+        </article>
+      )}
+    </div>
+  );
+};
 
 export default NoteDetails;
